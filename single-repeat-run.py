@@ -2,8 +2,8 @@
 # Imports
 # ------------------------------------------------------------------------------
 
-import argparse
-import json
+#import argparse
+#import json
 import scvi
 import numpy as np
 import pandas as pd
@@ -16,15 +16,15 @@ import time
 # ------------------------------------------------------------------------------
 
 # script arguments
-parser = argparse.ArgumentParser()
-parser.add_argument("--repeat", type=int)
+#parser = argparse.ArgumentParser()
+#parser.add_argument("--repeat", type=int)
 
 # parse
-args = parser.parse_args()
+#args = parser.parse_args()
 
 # load config
-with open("config.json") as file:
-    config = json.load(file)
+#with open("config.json") as file:
+#    config = json.load(file)
 
 # ------------------------------------------------------------------------------
 # Functions
@@ -170,21 +170,21 @@ metrics = [
 
 # model settings
 model_kwargs = {
-    'gene_likelihood': config['gene_likelihood'],
-    'n_hidden': config['n_hidden'],
-    'n_latent': config['n_latent'],
-    'n_layers': config['n_layers'],
-    'use_observed_lib_size': config['use_observed_lib_size']
+    'gene_likelihood': 'poisson', # config['gene_likelihood'],
+    'n_hidden': 16, # config['n_hidden'],
+    'n_latent': 2, # config['n_latent'],
+    'n_layers': 1, # config['n_layers'],
+    'use_observed_lib_size': True # config['use_observed_lib_size']
 }
 
 # training settings
 train_kwargs={
-    'max_epochs': config['max_epochs'],
-    'early_stopping': config['early_stopping']
+    'max_epochs': 100, # config['max_epochs'],
+    'early_stopping': False # config['early_stopping']
 }
 
 # load data
-counts = np.load(f"./data/{config['data_name']}.npy")
+counts = np.load(f"./data/indep-poi.npy") # np.load(f"./data/{config['data_name']}.npy")
 
 # result dataframe
 result_df = pd.DataFrame(
@@ -192,10 +192,13 @@ result_df = pd.DataFrame(
 )
 
 # run
-result = train_scVI_model(counts[:, :, args.repeat], model_kwargs=model_kwargs, train_kwargs=train_kwargs)
+# result = train_scVI_model(counts[:, :, args.repeat], model_kwargs=model_kwargs, train_kwargs=train_kwargs)
+result = train_scVI_model(counts[:, :, 0], model_kwargs=model_kwargs, train_kwargs=train_kwargs)
 
 # store results
-result_df = pd.DataFrame(result, index=[args.repeat])
+# result_df = pd.DataFrame(result, index=[args.repeat])
+result_df = pd.DataFrame(result, index=[0])
 
 # save
-result_df.to_csv(f"./data/{config['data_name']}-{config['model_name']}-{args.repeat}.csv")
+# result_df.to_csv(f"./data/{config['data_name']}-{config['model_name']}-{args.repeat}.csv")
+result_df.to_csv(f"./data/indep-poi-test-0.csv")
