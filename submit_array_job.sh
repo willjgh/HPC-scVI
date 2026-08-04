@@ -8,4 +8,4 @@ source ~/venv/scVI-venv/bin/activate
 
 cd $PBS_O_WORKDIR
 
-python single-repeat-run.py --repeat 0
+python single-repeat-run.py
