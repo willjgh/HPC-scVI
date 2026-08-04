@@ -3,6 +3,7 @@
 # ------------------------------------------------------------------------------
 
 import argparse
+import json
 import scvi
 import numpy as np
 import pandas as pd
@@ -16,27 +17,14 @@ import time
 
 # script arguments
 parser = argparse.ArgumentParser()
-
-# repeat
 parser.add_argument("--repeat", type=int)
-
-# data
-parser.add_argument("--data_name", required=True, type=str)
-
-# model
-parser.add_argument("--model_name", required=True, type=str)
-parser.add_argument("--gene_likelihood", required=True, choices=["zinb", "nb", "poisson"], type=str)
-parser.add_argument("--n_hidden", required=True, type=int)
-parser.add_argument("--n_latent", required=True, type=int)
-parser.add_argument("--n_layers", required=True, type=int)
-parser.add_argument("--use_observed_lib_size", default=True, action="store_false")
-
-# training
-parser.add_argument("--max_epochs", default=400, type=int)
-parser.add_argument("--early_stopping", default=False, action="store_true")
 
 # parse
 args = parser.parse_args()
+
+# load config
+with open("config.json") as file:
+    config = json.load(file)
 
 # ------------------------------------------------------------------------------
 # Functions
@@ -182,21 +170,21 @@ metrics = [
 
 # model settings
 model_kwargs = {
-    'gene_likelihood': args.gene_likelihood,
-    'n_hidden': args.n_hidden,
-    'n_latent': args.n_latent,
-    'n_layers': args.n_layers,
-    'use_observed_lib_size': args.use_observed_lib_size
+    'gene_likelihood': config['gene_likelihood'],
+    'n_hidden': config['n_hidden'],
+    'n_latent': config['n_latent'],
+    'n_layers': config['n_layers'],
+    'use_observed_lib_size': config['use_observed_lib_size']
 }
 
 # training settings
 train_kwargs={
-    'max_epochs': args.max_epochs,
-    'early_stopping': args.early_stopping
+    'max_epochs': config['max_epochs'],
+    'early_stopping': config['early_stopping']
 }
 
 # load data
-counts = np.load(f"./data/{args.data_name}.npy")
+counts = np.load(f"./data/{config['data_name']}.npy")
 
 # result dataframe
 result_df = pd.DataFrame(
@@ -210,4 +198,4 @@ result = train_scVI_model(counts[:, :, args.repeat], model_kwargs=model_kwargs, 
 result_df = pd.DataFrame(result, index=[args.repeat])
 
 # save
-result_df.to_csv(f"./data/{args.data_name}-{args.model_name}-{args.repeat}.csv")
+result_df.to_csv(f"./data/{config['data_name']}-{config['model_name']}-{args.repeat}.csv")
