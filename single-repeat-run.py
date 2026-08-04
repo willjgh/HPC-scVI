@@ -11,6 +11,8 @@ import scipy
 import anndata as ad
 import time
 
+print("Import success")
+
 # ------------------------------------------------------------------------------
 # Arguments
 # ------------------------------------------------------------------------------
@@ -186,6 +188,8 @@ train_kwargs={
 # load data
 counts = np.load(f"./data/indep-poi.npy") # np.load(f"./data/{config['data_name']}.npy")
 
+print("Data loading success")
+
 # result dataframe
 result_df = pd.DataFrame(
     columns=metrics
@@ -194,6 +198,8 @@ result_df = pd.DataFrame(
 # run
 # result = train_scVI_model(counts[:, :, args.repeat], model_kwargs=model_kwargs, train_kwargs=train_kwargs)
 result = train_scVI_model(counts[:, :, 0], model_kwargs=model_kwargs, train_kwargs=train_kwargs)
+
+print("Training success")
 
 # store results
 # result_df = pd.DataFrame(result, index=[args.repeat])
