@@ -4,7 +4,6 @@
 
 ml tools/prod
 ml SciPy-bundle/2025.07-iimkl-2025b
-source ~/venv/scVI-venv/bin/activate
 
 cd $PBS_O_WORKDIR
 
