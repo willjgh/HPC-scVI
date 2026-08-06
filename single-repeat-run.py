@@ -100,7 +100,7 @@ def train_scVI_model(counts, model_kwargs={}, train_kwargs={}):
 
     # train model
     s = time.time()
-    model.train(silent=True, **train_kwargs)
+    model.train(**train_kwargs)
     t = time.time() - s
 
     # compute model statistics
