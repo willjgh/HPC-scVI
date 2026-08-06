@@ -5,6 +5,7 @@
 import json
 import numpy as np
 import pandas as pd
+import os
 
 print("Import success")
 
@@ -66,4 +67,10 @@ for r in range(repeats):
     result_df = pd.concat([result_df, r_df])
 
 # save
-result_df.to_csv(f"./data/{config['data_name']}-{['model_name']}.csv")
+result_df.to_csv(f"./data/{config['data_name']}-{config['model_name']}.csv")
+
+# remove files
+for r in range(repeats):
+
+    # remove data file
+    os.remove(f"./data/{config['data_name']}-{config['model_name']}-{r}.csv")
