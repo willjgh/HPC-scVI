@@ -7,7 +7,7 @@ data_list = [
 ]
 
 model_list = [
-    {"model_name": "NB-16-2-1-400-const", "gene_likelihood": "poisson", "n_hidden": 16, "n_latent": 2, "n_layers": 1, "lib": "const"}
+    {"model_name": "NB-16-2-1-400-const", "gene_likelihood": "nb", "n_hidden": 16, "n_latent": 2, "n_layers": 1, "lib": "const"}
 ]
 
 # ------------------------------------------------------------------------------
