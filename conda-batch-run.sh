@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -l walltime=01:00:00
 #PBS -l select=1:ncpus=1:mem=4gb
-#PBS -J 1-1260
+#PBS -J 1-1
 
 eval "$(~/miniforge3/bin/conda shell.bash hook)"
 conda activate scVIpy311

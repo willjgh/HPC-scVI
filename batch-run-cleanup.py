@@ -3,22 +3,11 @@
 # ------------------------------------------------------------------------------
 
 data_list = [
-    "real-data",
-    "lognormal-nb",
-    "lognormal-poi",
-    "copula-nb",
-    "copula-poi",
-    "indep-nb",
-    "indep-poi"
+    "real-data"
 ]
 
 model_list = [
-    {"model_name": "Poi-128-2-1-400-pad", "gene_likelihood": "poisson", "n_hidden": 128, "n_latent": 2, "n_layers": 1, "lib": "pad"},
-    {"model_name": "Poi-16-2-1-400-const", "gene_likelihood": "poisson", "n_hidden": 16, "n_latent": 2, "n_layers": 1, "lib": "pad"},
-    {"model_name": "Poi-4-2-1-400-real", "gene_likelihood": "poisson", "n_hidden": 4, "n_latent": 2, "n_layers": 1, "lib": "pad"},
-    {"model_name": "NB-128-2-1-400-pad", "gene_likelihood": "nb", "n_hidden": 128, "n_latent": 2, "n_layers": 1, "lib": "pad"},
-    {"model_name": "NB-16-2-1-400-const", "gene_likelihood": "nb", "n_hidden": 16, "n_latent": 2, "n_layers": 1, "lib": "pad"},
-    {"model_name": "NB-4-2-1-400-real", "gene_likelihood": "nb", "n_hidden": 4, "n_latent": 2, "n_layers": 1, "lib": "pad"}
+    {"model_name": "NB-16-2-1-400-const", "gene_likelihood": "poisson", "n_hidden": 16, "n_latent": 2, "n_layers": 1, "lib": "const"}
 ]
 
 # ------------------------------------------------------------------------------
