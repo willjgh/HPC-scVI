@@ -7,7 +7,7 @@ data_list = [
 ]
 
 model_list = [
-    {"model_name": "Poi-128-2-1-400-real", "gene_likelihood": "poisson", "n_hidden": 128, "n_latent": 2, "n_layers": 1, "lib": "real"}
+    {"model_name": "NB-16-2-1-400-soft", "gene_likelihood": "nb", "n_hidden": 16, "n_latent": 2, "n_layers": 1, "lib": "soft"}
 ]
 
 # ------------------------------------------------------------------------------
@@ -123,6 +123,12 @@ def train_scVI_model(counts, model_kwargs={}, train_kwargs={}, lib="obs"):
         adata = ad.AnnData(counts)
         adata.obs['size_factor_real'] = total_counts * scaling
         scvi.model.SCVI.setup_anndata(adata, size_factor_key="size_factor_real")
+
+    # fix to observed library size: l_n value unchanged, but changes softmax to softplus
+    elif lib == "soft":
+        adata = ad.AnnData(counts)
+        adata.obs['size_factor_obs'] = np.mean(counts, axis=1)
+        scvi.model.SCVI.setup_anndata(adata, size_factor_key="size_factor_obs")
 
     else:
         raise Exception("Invalid library size method")
